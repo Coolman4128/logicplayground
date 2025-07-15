@@ -14,12 +14,9 @@ namespace LogicPlayground.ViewModels
        
         public LogicCanvasViewModel()
         {
-            // Initialize with some default blocks
-            LogicBlocks.Add(new LogicBlockViewModel { Caption = "Block 1" });
-            LogicBlocks.Add(new LogicBlockViewModel { Caption = "Block 2" });
-            LogicBlocks.Add(new LogicBlockViewModel { Caption = "Block 3" });
+           
 
-            _ = Task.Run(() => MoveText());
+           
         }
 
 
@@ -27,7 +24,7 @@ namespace LogicPlayground.ViewModels
         {
             while (true)
             {
-                if (SelectedBlock.BlockPositionX < 100)
+                if (SelectedBlock.BlockPositionX < 1000)
                 {
                     SelectedBlock.BlockPositionX++;
                 }
@@ -35,7 +32,7 @@ namespace LogicPlayground.ViewModels
                 {
                     SelectedBlock.BlockPositionX = 0;
                 }
-                SelectedBlock.BlockPositionY = (int)Math.Floor(50 * Math.Sin(SelectedBlock.BlockPositionX / 4)) + 50;
+                SelectedBlock.BlockPositionY = (int)(250 * Math.Sin((double)SelectedBlock.BlockPositionX / 100.00) + 300);
                 await Task.Delay(10);
             }
         }

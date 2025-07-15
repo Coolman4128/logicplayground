@@ -2,15 +2,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:LogicPlayground.ViewModels"
              xmlns:views="using:LogicPlayground.Views"
+             xmlns:behav="clr-namespace:LogicPlayground.Behaviors"
              x:Class="LogicPlayground.Views.LogicCanvas"
              x:DataType="vm:LogicCanvasViewModel"
-             Width="400" Height="300">
+             >
     
 
     <Canvas>
         <views:LogicBlock DataContext="{Binding SelectedBlock}"
                          Canvas.Left="{Binding BlockPositionX}"
-                         Canvas.Top="{Binding BlockPositionY}" />
+                         Canvas.Top="{Binding BlockPositionY}" 
+                         />
     </Canvas>
 
 </UserControl>

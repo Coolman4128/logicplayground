@@ -16,8 +16,8 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <StackPanel>
+    <Grid>
         <views:LogicCanvas DataContext="{Binding LogicCanvasViewModel}" />
-    </StackPanel>
+    </Grid>
 
 </Window>

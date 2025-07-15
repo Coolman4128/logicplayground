@@ -1,13 +1,19 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:LogicPlayground.ViewModels"
+             xmlns:behav="clr-namespace:LogicPlayground.Behaviors"
              x:Class="LogicPlayground.Views.LogicBlock"
              x:DataType="vm:LogicBlockViewModel"
-             Width="200" Height="100">
-    
+             
+             Width="100" Height="100">
 
-    <StackPanel>
-        <TextBlock Text="{Binding Caption}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-    </StackPanel>
+    <Border Width="100" Height="100" BorderBrush="Black" BorderThickness="1"
+    behav:DragBehavior.EnableDrag="True" >
+        <TextBlock Text="{Binding Guid}"
+                   FontSize="8"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap"/>
+    </Border>
 
 </UserControl>
