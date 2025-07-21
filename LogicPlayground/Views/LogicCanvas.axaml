@@ -20,11 +20,18 @@
     </UserControl.DataTemplates>
 
     <!-- view-model namespace: xmlns:vm="clr-namespace:YourApp.ViewModels" -->
-<ItemsControl ItemsSource="{Binding Blocks}">
+<ItemsControl ItemsSource="{Binding Blocks}" behav:CanvasMovementBehavior.EnablePan="True">
     <!-- 1. Use a Canvas to lay items out freely -->
     <ItemsControl.ItemsPanel>
         <ItemsPanelTemplate>
-            <Canvas/>
+            <Canvas Background="#1d1d1dff" Width="3000" Height="2000">
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="{Binding ZoomLevel, Mode=OneWay}" ScaleY="{Binding ZoomLevel, Mode=OneWay}" />
+                        <TranslateTransform X="{Binding CameraOffsetX, Mode=OneWay}" Y="{Binding CameraOffsetY, Mode=OneWay}" />
+                    </TransformGroup>
+                </Canvas.RenderTransform>
+            </Canvas>
         </ItemsPanelTemplate>
     </ItemsControl.ItemsPanel>
 
