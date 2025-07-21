@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks"
+             xmlns:behav="clr-namespace:LogicPlayground.Behaviors"
+             x:Class="LogicPlayground.Views.LogicBlock"
+             x:DataType="vm:LogicBlockViewModel"
+             
+             Width="100" Height="100">
+
+    <Border Width="100" Height="100" BorderBrush="White" BorderThickness="1" Background="Transparent">
+        <TextBlock Text="{Binding Guid}"
+                   FontSize="8"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap"/>
+    </Border>
+
+</UserControl>

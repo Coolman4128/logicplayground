@@ -17,7 +17,21 @@
     </Design.DataContext>
 
     <Grid>
-        <views:LogicCanvas DataContext="{Binding LogicCanvasViewModel}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <!-- Top button bar -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="LightGray" Margin="5">
+            <Button Name="Button1" Content="Button 1" Margin="5" Command="{Binding AddLogicGateBlockCommand}" />
+            <Button Name="Button2" Content="Button 2" Margin="5" Command="{Binding AddLogDigitalOutputBlockCommand}" />
+            <Button Name="Button3" Content="Button 3" Margin="5" Command="{Binding AddConstAnalogInputBlockCommand}" />
+            <Button Name="Button4" Content="Button 4" Margin="5" />
+        </StackPanel>
+        
+        <!-- Canvas area -->
+        <views:LogicCanvas Grid.Row="1" DataContext="{Binding LogicCanvasViewModel}" />
     </Grid>
 
 </Window>

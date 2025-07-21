@@ -1,14 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
+using LogicPlayground.Models;
+using LogicPlayground.ViewModels.LogicBlocks;
+using LogicPlayground.ViewModels.LogicBlocks.Functions;
+using LogicPlayground.ViewModels.LogicBlocks.Inputs;
+using LogicPlayground.ViewModels.LogicBlocks.Outputs;
 
 namespace LogicPlayground.ViewModels
 {
     public class LogicCanvasViewModel : ViewModelBase
     {
-        public List<LogicBlockViewModel> LogicBlocks { get; set; } = new List<LogicBlockViewModel>();
-        public LogicBlockViewModel SelectedBlock { get; set; } = new LogicBlockViewModel();
+        public ObservableCollection<LogicBlockViewModel> Blocks => LogicProcessor.Instance.Blocks;
+        public LogicBlockViewModel? SelectedBlock { get; set; } = null;
 
         
        
@@ -19,22 +25,21 @@ namespace LogicPlayground.ViewModels
            
         }
 
-
-        public async Task MoveText()
+        public void AddLogicBlock(string blockType)
         {
-            while (true)
+            LogicBlockViewModel block = blockType switch
             {
-                if (SelectedBlock.BlockPositionX < 1000)
-                {
-                    SelectedBlock.BlockPositionX++;
-                }
-                else
-                {
-                    SelectedBlock.BlockPositionX = 0;
-                }
-                SelectedBlock.BlockPositionY = (int)(250 * Math.Sin((double)SelectedBlock.BlockPositionX / 100.00) + 300);
-                await Task.Delay(10);
-            }
+                "LogicGate" => new LogicGateFunctionViewModel(),
+                "LogDigitalOutput" => new LogDigitalOutputViewModel(),
+                "ConstAnalogInput" => new ConstAnalogInputViewModel(),
+                _ => throw new ArgumentException("Unknown block type", nameof(blockType))
+            };
+
+            LogicProcessor.Instance.AddBlock(block);
+            SelectedBlock = block;
         }
+       
+
+       
     }
 }
