@@ -2,17 +2,57 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks"
              xmlns:behav="clr-namespace:LogicPlayground.Behaviors"
+             xmlns:views="using:LogicPlayground.Views"
              x:Class="LogicPlayground.Views.LogicBlock"
              x:DataType="vm:LogicBlockViewModel"
-             
-             Width="100" Height="100">
+             Width="200" Height="200">
 
-    <Border Width="100" Height="100" BorderBrush="White" BorderThickness="1" Background="Transparent">
-        <TextBlock Text="{Binding Guid}"
-                   FontSize="8"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   TextWrapping="Wrap"/>
+
+    <Border Width="200" Height="200" BorderBrush="White" BorderThickness="1" Background="Transparent" CornerRadius="6">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50" MinWidth="50"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50" MinWidth="50"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!-- Inputs on the left -->
+            <ItemsControl Grid.Column="0" ItemsSource="{Binding Inputs}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,2">
+                            <views:ConnectionPoint behav:ConnecterBehavior.EnableConnect="True"/>
+                            <TextBlock Text="{Binding Name}" Margin="4,0,0,0" VerticalAlignment="Center" FontSize="10"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <!-- Block content (center) PUT ALL BLOCK CONTENT HERE -->
+            <TextBlock Grid.Column="1" Text="{Binding Guid}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12" TextWrapping="Wrap"/>
+            <!-- Outputs on the right -->
+            <ItemsControl Grid.Column="2" ItemsSource="{Binding Outputs}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,2">
+                            <TextBlock Text="{Binding Name}" Margin="0,0,4,0" VerticalAlignment="Center" FontSize="10"/>
+                            <views:ConnectionPoint behav:ConnecterBehavior.EnableConnect="True"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
     </Border>
 
 </UserControl>

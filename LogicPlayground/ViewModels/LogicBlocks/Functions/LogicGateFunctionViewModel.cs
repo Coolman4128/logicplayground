@@ -6,12 +6,16 @@ using LogicPlayground.Enums;
 
 namespace LogicPlayground.ViewModels.LogicBlocks.Functions;
 
+
+
 public partial class LogicGateFunctionViewModel : LogicBlockViewModel
 {
 
 
     [ObservableProperty]
     private bool _output;
+
+   
 
 
 
@@ -33,9 +37,7 @@ public partial class LogicGateFunctionViewModel : LogicBlockViewModel
     public LogicGateFunctionViewModel()
     {
         NumberOfInputs = 2;
-        GateType = LogicGateTypeEnum.AND;
-        Inputs.Add(new ConnectionPointInputViewModel(Enums.ConnectionTypeEnum.Digital));
-        Inputs.Add(new ConnectionPointInputViewModel(Enums.ConnectionTypeEnum.Digital));
+        GateType = LogicGateTypeEnum.NAND;
         Outputs.Add(new ConnectionPointOutputViewModel(Enums.ConnectionTypeEnum.Digital));
     }
 
@@ -99,6 +101,6 @@ public partial class LogicGateFunctionViewModel : LogicBlockViewModel
             }
         }
     }
-    
+
 
 }

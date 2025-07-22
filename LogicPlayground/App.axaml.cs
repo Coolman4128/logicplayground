@@ -6,6 +6,8 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using LogicPlayground.ViewModels;
 using LogicPlayground.Views;
+using LogicPlayground.Models;
+using System;
 
 namespace LogicPlayground;
 
@@ -14,6 +16,9 @@ public partial class App : Application
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+
+        Console.WriteLine("Application initialized");
+        LogicProcessor.Instance.StartProcessing();
     }
 
     public override void OnFrameworkInitializationCompleted()

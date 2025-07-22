@@ -1,3 +1,4 @@
+using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace LogicPlayground.ViewModels.LogicBlocks.Outputs;
@@ -17,5 +18,6 @@ public partial class LogDigitalOutputViewModel : LogicBlockViewModel
     public override void Process()
     {
         Value = Inputs[0].Value > 0;
+        Console.WriteLine($"LogDigitalOutput: Value set to {Value}");
     }
 }

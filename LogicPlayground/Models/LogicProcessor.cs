@@ -18,7 +18,7 @@ public partial class LogicProcessor : ObservableObject
     private int _cycleTime = 100; // Default cycle time in milliseconds
 
     [ObservableProperty]
-    private bool _paused = true;
+    private bool _paused = false;
 
     public void AddBlock(LogicBlockViewModel block)
     {
@@ -54,6 +54,7 @@ public partial class LogicProcessor : ObservableObject
                 if (!Paused)
                 {
                     ProcessSingleCycle();
+                    Console.WriteLine("Processed a cycle");
                 }
                 startTime.Stop();
                 var elapsed = startTime.ElapsedMilliseconds;
@@ -72,6 +73,8 @@ public partial class LogicProcessor : ObservableObject
         foreach (var block in SortedBlocks)
         {
             block.Process();
+            ConnectionPointViewModel.PropagateConnections();
         }
+        
     }
 }

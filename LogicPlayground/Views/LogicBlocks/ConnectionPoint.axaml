@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks"
+             xmlns:behav="clr-namespace:LogicPlayground.Behaviors"
+             x:Class="LogicPlayground.Views.ConnectionPoint"
+             x:DataType="vm:ConnectionPointViewModel"
+
+             Width="{Binding Size}" Height="{Binding Size}">
+    <Ellipse Width="{Binding Size}" Height="{Binding Size}" Fill="{Binding PointColor}"/>
+
+</UserControl>

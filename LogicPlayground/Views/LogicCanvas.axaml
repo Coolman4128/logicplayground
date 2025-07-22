@@ -20,7 +20,7 @@
     </UserControl.DataTemplates>
 
     <!-- view-model namespace: xmlns:vm="clr-namespace:YourApp.ViewModels" -->
-<ItemsControl ItemsSource="{Binding Blocks}" behav:CanvasMovementBehavior.EnablePan="True">
+<ItemsControl x:Name="BlockItemsControl" ItemsSource="{Binding Blocks}" behav:CanvasMovementBehavior.EnablePan="True">
     <!-- 1. Use a Canvas to lay items out freely -->
     <ItemsControl.ItemsPanel>
         <ItemsPanelTemplate>
@@ -37,7 +37,7 @@
 
     <!-- 2. Style the item *container* so Canvas can read the coords -->
     <ItemsControl.Styles>
-        <Style Selector="ContentPresenter" x:DataType="logic:LogicBlockViewModel">
+        <Style Selector="#BlockItemsControl > ContentPresenter" x:DataType="logic:LogicBlockViewModel">
             <!-- bind to your VM properties -->
             <Setter Property="Canvas.Left" Value="{Binding BlockPositionX}"/>
             <Setter Property="Canvas.Top"  Value="{Binding BlockPositionY}"/>
