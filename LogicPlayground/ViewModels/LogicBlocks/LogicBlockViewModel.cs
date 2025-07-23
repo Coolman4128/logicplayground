@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using Avalonia;
 using CommunityToolkit.Mvvm.ComponentModel;
+using LogicPlayground.Models;
 
 
 namespace LogicPlayground.ViewModels.LogicBlocks
@@ -58,6 +59,9 @@ namespace LogicPlayground.ViewModels.LogicBlocks
                 var deltaY = position.Y - StartPoint.Y;
                 BlockPositionX = OriginalX + deltaX;
                 BlockPositionY = OriginalY + deltaY;
+                
+                // Update connection lines for this block when it moves
+                ConnectionLineManager.Instance.UpdateLinesForBlock(this);
             }
             Console.WriteLine($"Dragging block to position: {BlockPositionX}, {BlockPositionY}");
         }

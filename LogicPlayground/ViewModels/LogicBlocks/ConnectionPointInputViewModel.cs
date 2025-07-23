@@ -34,6 +34,7 @@ public partial class ConnectionPointInputViewModel : ConnectionPointViewModel
 
     public void Disconnect()
     {
+        Value = 0.0; // Reset value when disconnected
         if (ConnectedOutput != null)
         {
             ConnectedOutput.ConnectedInputs.Remove(this); // Remove this input from the output's connected inputs

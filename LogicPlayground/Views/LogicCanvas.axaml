@@ -4,6 +4,7 @@
              xmlns:views="using:LogicPlayground.Views"
              xmlns:behav="clr-namespace:LogicPlayground.Behaviors"
              xmlns:logic="clr-namespace:LogicPlayground.ViewModels.LogicBlocks"
+             xmlns:models="clr-namespace:LogicPlayground.Models"
              x:Class="LogicPlayground.Views.LogicCanvas"
              x:DataType="vm:LogicCanvasViewModel"
              >
@@ -20,35 +21,72 @@
     </UserControl.DataTemplates>
 
     <!-- view-model namespace: xmlns:vm="clr-namespace:YourApp.ViewModels" -->
-<ItemsControl x:Name="BlockItemsControl" ItemsSource="{Binding Blocks}" behav:CanvasMovementBehavior.EnablePan="True">
-    <!-- 1. Use a Canvas to lay items out freely -->
-    <ItemsControl.ItemsPanel>
-        <ItemsPanelTemplate>
-            <Canvas Background="#1d1d1dff" Width="3000" Height="2000">
-                <Canvas.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="{Binding ZoomLevel, Mode=OneWay}" ScaleY="{Binding ZoomLevel, Mode=OneWay}" />
-                        <TranslateTransform X="{Binding CameraOffsetX, Mode=OneWay}" Y="{Binding CameraOffsetY, Mode=OneWay}" />
-                    </TransformGroup>
-                </Canvas.RenderTransform>
-            </Canvas>
-        </ItemsPanelTemplate>
-    </ItemsControl.ItemsPanel>
+<Grid behav:CanvasMovementBehavior.EnablePan="True" 
+      behav:ConnectionLineSelectionBehavior.EnableSelection="True">
+    <!-- Logic Blocks Layer (Background) -->
+    <ItemsControl x:Name="BlockItemsControl" ItemsSource="{Binding Blocks}">
+        <!-- 1. Use a Canvas to lay items out freely -->
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Canvas Background="#1d1d1dff" Width="3000" Height="2000">
+                    <Canvas.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding ZoomLevel, Mode=OneWay}" ScaleY="{Binding ZoomLevel, Mode=OneWay}" />
+                            <TranslateTransform X="{Binding CameraOffsetX, Mode=OneWay}" Y="{Binding CameraOffsetY, Mode=OneWay}" />
+                        </TransformGroup>
+                    </Canvas.RenderTransform>
+                </Canvas>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
 
-    <!-- 2. Style the item *container* so Canvas can read the coords -->
-    <ItemsControl.Styles>
-        <Style Selector="#BlockItemsControl > ContentPresenter" x:DataType="logic:LogicBlockViewModel">
-            <!-- bind to your VM properties -->
-            <Setter Property="Canvas.Left" Value="{Binding BlockPositionX}"/>
-            <Setter Property="Canvas.Top"  Value="{Binding BlockPositionY}"/>
-        </Style>
-    </ItemsControl.Styles>
+        <!-- 2. Style the item *container* so Canvas can read the coords -->
+        <ItemsControl.Styles>
+            <Style Selector="#BlockItemsControl > ContentPresenter" x:DataType="logic:LogicBlockViewModel">
+                <!-- bind to your VM properties -->
+                <Setter Property="Canvas.Left" Value="{Binding BlockPositionX}"/>
+                <Setter Property="Canvas.Top"  Value="{Binding BlockPositionY}"/>
+            </Style>
+        </ItemsControl.Styles>
+    </ItemsControl>
 
-    
+    <!-- Connection Lines Layer (Foreground) -->
+    <ItemsControl ItemsSource="{Binding ConnectionLines}" 
+                  IsHitTestVisible="False">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Canvas Background="Transparent" Width="3000" Height="2000">
+                    <Canvas.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding ZoomLevel, Mode=OneWay}" ScaleY="{Binding ZoomLevel, Mode=OneWay}" />
+                            <TranslateTransform X="{Binding CameraOffsetX, Mode=OneWay}" Y="{Binding CameraOffsetY, Mode=OneWay}" />
+                        </TransformGroup>
+                    </Canvas.RenderTransform>
+                </Canvas>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="models:ConnectionLine">
+                <Polyline Points="{Binding Points}" 
+                          Stroke="{Binding StrokeColor}" 
+                          StrokeThickness="{Binding StrokeThickness}" />
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
 
-
-   
-</ItemsControl>
+    <!-- Temporary Connection Line (for dragging feedback) -->
+    <Canvas IsHitTestVisible="False" IsVisible="{Binding TempConnectionLine.IsVisible}">
+        <Canvas.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform ScaleX="{Binding ZoomLevel, Mode=OneWay}" ScaleY="{Binding ZoomLevel, Mode=OneWay}" />
+                <TranslateTransform X="{Binding CameraOffsetX, Mode=OneWay}" Y="{Binding CameraOffsetY, Mode=OneWay}" />
+            </TransformGroup>
+        </Canvas.RenderTransform>
+        <Polyline Points="{Binding TempConnectionLine.Points}" 
+                  Stroke="{Binding TempConnectionLine.StrokeColor}" 
+                  StrokeThickness="{Binding TempConnectionLine.StrokeThickness}" 
+                  StrokeDashArray="5,5" />
+    </Canvas>
+</Grid>
 
 
 </UserControl>

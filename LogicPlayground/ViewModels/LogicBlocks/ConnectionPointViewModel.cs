@@ -138,6 +138,7 @@ public partial class ConnectionPointViewModel : ViewModelBase
 
             input.Value = output.Value;
         }
+       
     }
 
     public bool GetValueAsBool()

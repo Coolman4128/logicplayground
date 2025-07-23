@@ -44,6 +44,7 @@ public partial class ConnectionPointOutputViewModel : ConnectionPointViewModel
 
         if (ConnectedInputs.Contains(input))
         {
+            input.Value = 0.0; // Reset value when disconnected
             ConnectedInputs.Remove(input);
             input.ConnectedOutput = null; // Clear the connected output reference
             var connection = ConnectionPointViewModel.Connections.FirstOrDefault(c => c.Item1 == input && c.Item2 == this);

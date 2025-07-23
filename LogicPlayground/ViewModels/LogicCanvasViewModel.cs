@@ -15,7 +15,11 @@ namespace LogicPlayground.ViewModels
     public partial class LogicCanvasViewModel : ViewModelBase
     {
         public ObservableCollection<LogicBlockViewModel> Blocks => LogicProcessor.Instance.Blocks;
+        public ObservableCollection<ConnectionLine> ConnectionLines => ConnectionLineManager.Instance.ConnectionLines;
         public LogicBlockViewModel? SelectedBlock { get; set; } = null;
+
+        [ObservableProperty]
+        private TempConnectionLine _tempConnectionLine = new();
 
         [ObservableProperty]
         private double _zoomLevel = 1.0;
@@ -72,6 +76,9 @@ namespace LogicPlayground.ViewModels
             // Update camera offset to pan the canvas
             CameraOffsetX += deltaX;
             CameraOffsetY += deltaY;
+            
+            // Update all connection lines when canvas is panned
+            ConnectionLineManager.Instance.UpdateAllLines();
         }
         
         
