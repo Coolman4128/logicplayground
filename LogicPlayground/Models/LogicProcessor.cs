@@ -54,7 +54,6 @@ public partial class LogicProcessor : ObservableObject
                 if (!Paused)
                 {
                     ProcessSingleCycle();
-                    Console.WriteLine("Processed a cycle");
                 }
                 startTime.Stop();
                 var elapsed = startTime.ElapsedMilliseconds;
