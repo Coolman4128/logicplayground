@@ -35,22 +35,19 @@ public static class DragBehavior
 
     private static void OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        Console.WriteLine("PointerPressed event triggered");
         if (sender is Control control)
         {
             // Handle both direct LogicBlock controls and ContentPresenter containers
             var viewModel = control.DataContext as LogicBlockViewModel;
             if (viewModel != null)
             {
-                Console.WriteLine("Is LogicBlock or ContentPresenter with LogicBlock DataContext");
                 var parentCanvas = FindParentCanvas(control as Visual);
                 if (parentCanvas != null)
                 {
-                    Console.WriteLine("Found parent Canvas, starting drag");
                     var point = e.GetPosition(parentCanvas);
                     viewModel.StartDrag(point);
                     e.Pointer.Capture(control);
-                    e.Handled = true;
+                    e.Handled = true; // Mark the event as handled to prevent further processing
                 }
             }
         }

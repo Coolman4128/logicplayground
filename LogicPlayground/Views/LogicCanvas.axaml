@@ -9,12 +9,14 @@
              x:DataType="vm:LogicCanvasViewModel"
              >
      <UserControl.DataTemplates>
+
+     <!-- DEFINE DATA TEMPLATES FOR BLOCKS HERE-->
      <DataTemplate x:DataType="logic:Functions.LogicGateFunctionViewModel">
-            <views:LogicGateFunction behav:DragBehavior.EnableDrag="True"/>
+            <views:LogicGateFunction behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
         </DataTemplate>
         
         <DataTemplate x:DataType="logic:LogicBlockViewModel">
-            <views:LogicBlock behav:DragBehavior.EnableDrag="True"/>
+            <views:LogicBlock behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
         </DataTemplate>
 
         

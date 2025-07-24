@@ -49,7 +49,7 @@ namespace LogicPlayground.ViewModels
             {
                 "LogicGate" => new LogicGateFunctionViewModel(),
                 "LogDigitalOutput" => new LogDigitalOutputViewModel(),
-                "ConstAnalogInput" => new ConstAnalogInputViewModel(),
+                "ConstDigitalInput" => new ConstDigitalInputViewModel(),
                 _ => throw new ArgumentException("Unknown block type", nameof(blockType))
             };
 

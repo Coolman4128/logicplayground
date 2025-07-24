@@ -15,6 +15,8 @@ public partial class LogicGateFunctionViewModel : LogicBlockViewModel
     [ObservableProperty]
     private bool _output;
 
+    public LogicGateTypeEnum[] GateTypeOptions { get; } = Enum.GetValues<LogicGateTypeEnum>();
+
    
 
 

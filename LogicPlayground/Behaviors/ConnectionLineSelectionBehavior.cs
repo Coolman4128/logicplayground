@@ -49,7 +49,7 @@ public static class ConnectionLineSelectionBehavior
             // Select the clicked connection line
             ConnectionLineManager.Instance.SelectConnectionLine(hitConnectionLine);
             e.Handled = true; // Only handle the event if we actually hit a connection line
-            
+
             // Ensure the control has keyboard focus for key events
             control.Focus();
         }
@@ -60,6 +60,8 @@ public static class ConnectionLineSelectionBehavior
             ConnectionLineManager.Instance.DeselectAllConnectionLines();
             // Don't set e.Handled = true here - let other behaviors handle the event
         }
+        
+        e.Handled = true; // Prevent further processing of this event
     }
 
     private static void OnKeyDown(object? sender, KeyEventArgs e)

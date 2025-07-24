@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks.Outputs"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="400"
+             x:Class="LogicPlayground.Views.Settings.LogDigitalOutputSettingsView"
+             x:DataType="vm:LogDigitalOutputViewModel">
+    
+    <StackPanel Margin="10" Spacing="10">
+        <TextBlock Text="Log Digital Output Settings" FontSize="16" FontWeight="Bold" />
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Current Value:" />
+            <TextBlock Text="{Binding Value}" 
+                      FontWeight="Bold" 
+                      FontSize="14" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>
