@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Avalonia.Controls;
 using LogicPlayground.ViewModels.LogicBlocks;
 using LogicPlayground.Factories;
+using System.Collections.Generic;
 
 namespace LogicPlayground.ViewModels;
 
@@ -11,6 +12,27 @@ public partial class MainWindowViewModel : ViewModelBase
     public string Greeting { get; } = "Welcome to Avalonia!";
 
     public LogicCanvasViewModel LogicCanvasViewModel { get; } = new LogicCanvasViewModel();
+
+    public List<string> AvailableLogicBlocks { get; } = new List<string>
+    {
+        "LogicGate",
+        "LogDigitalOutput", 
+        "ConstDigitalInput",
+        "ConstAnalogInput",
+        "LogAnalogOutput"
+    };
+
+    [ObservableProperty]
+    private string? _selectedLogicBlockType;
+
+    [RelayCommand]
+    public void AddLogicBlock(string blockType)
+    {
+        if (!string.IsNullOrEmpty(blockType))
+        {
+            LogicCanvasViewModel.AddLogicBlock(blockType);
+        }
+    }
 
     [ObservableProperty]
     private UserControl? _activeSettingsPanel;
@@ -29,23 +51,5 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         ActiveSettingsPanel = null;
         ActiveSettingsViewModel = null;
-    }
-
-    [RelayCommand]
-    public void AddLogicGateBlock()
-    {
-        LogicCanvasViewModel.AddLogicBlock("LogicGate");
-    }
-
-    [RelayCommand]
-    public void AddLogDigitalOutputBlock()
-    {
-        LogicCanvasViewModel.AddLogicBlock("LogDigitalOutput");
-    }
-
-    [RelayCommand]
-    public void AddConstDigitalInputBlock()
-    {
-        LogicCanvasViewModel.AddLogicBlock("ConstDigitalInput");
     }
 }

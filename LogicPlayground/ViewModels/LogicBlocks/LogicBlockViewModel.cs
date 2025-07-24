@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Avalonia;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -19,10 +20,10 @@ namespace LogicPlayground.ViewModels.LogicBlocks
         private Guid _guid = Guid.CreateVersion7();
 
         [ObservableProperty]
-        private double _blockPositionX = 0;
+        private double _blockPositionX = LogicCanvasViewModel.CANVASSIZE_WIDTH / 2;
 
         [ObservableProperty]
-        private double _blockPositionY = 0;
+        private double _blockPositionY = LogicCanvasViewModel.CANVASSIZE_HEIGHT / 2;
 
         // Add to ViewModel:
         [ObservableProperty]
@@ -33,6 +34,14 @@ namespace LogicPlayground.ViewModels.LogicBlocks
 
         public ObservableCollection<ConnectionPointInputViewModel> Inputs { get; } = new();
         public ObservableCollection<ConnectionPointOutputViewModel> Outputs { get; } = new();
+
+
+        // PUT EVERY BLOCK TYPE HERE
+        public static List<string> BlockTypes { get; } = new()
+        {
+            "LogicGateFunction",
+            "LogicBlock"
+        };
 
         public virtual void Process()
         {

@@ -30,7 +30,7 @@
         <!-- 1. Use a Canvas to lay items out freely -->
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <Canvas Background="#1d1d1dff" Width="3000" Height="2000">
+                <Canvas Background="#1d1d1dff" Width="{Binding CANVASSIZE_WIDTH}" Height="{Binding CANVASSIZE_HEIGHT}">
                     <Canvas.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleX="{Binding ZoomLevel, Mode=OneWay}" ScaleY="{Binding ZoomLevel, Mode=OneWay}" />
@@ -56,7 +56,7 @@
                   IsHitTestVisible="False">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <Canvas Background="Transparent" Width="3000" Height="2000">
+                <Canvas Background="Transparent" Width="{Binding CANVASSIZE_WIDTH}" Height="{Binding CANVASSIZE_HEIGHT}">
                     <Canvas.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleX="{Binding ZoomLevel, Mode=OneWay}" ScaleY="{Binding ZoomLevel, Mode=OneWay}" />

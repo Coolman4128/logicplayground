@@ -28,10 +28,13 @@
         
         <!-- Top button bar -->
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Background="LightGray" Margin="5">
-            <Button Name="Button1" Content="Button 1" Margin="5" Command="{Binding AddLogicGateBlockCommand}" />
-            <Button Name="Button2" Content="Button 2" Margin="5" Command="{Binding AddLogDigitalOutputBlockCommand}" />
-            <Button Name="Button3" Content="Button 3" Margin="5" Command="{Binding AddConstDigitalInputBlockCommand}" />
-            <Button Name="Button4" Content="Button 4" Margin="5" />
+            <ComboBox Name="LogicBlockSelector" 
+                      Width="200" 
+                      Margin="5"
+                      ItemsSource="{Binding AvailableLogicBlocks}"
+                      SelectedIndex="-1"
+                      SelectionChanged="LogicBlockSelector_SelectionChanged"
+                      PlaceholderText="Select a logic block to add..." />
         </StackPanel>
         
         <!-- Canvas area -->

@@ -33,6 +33,8 @@ namespace LogicPlayground.ViewModels
 
         private bool _isDragging = false;
 
+        public static double CANVASSIZE_WIDTH { get; } = 20000;
+        public static  double CANVASSIZE_HEIGHT { get; } = 10000;
 
 
 
@@ -50,6 +52,8 @@ namespace LogicPlayground.ViewModels
                 "LogicGate" => new LogicGateFunctionViewModel(),
                 "LogDigitalOutput" => new LogDigitalOutputViewModel(),
                 "ConstDigitalInput" => new ConstDigitalInputViewModel(),
+                "ConstAnalogInput" => new ConstAnalogInputViewModel(),
+                "LogAnalogOutput" => new LogAnalogOutputViewModel(),
                 _ => throw new ArgumentException("Unknown block type", nameof(blockType))
             };
 
