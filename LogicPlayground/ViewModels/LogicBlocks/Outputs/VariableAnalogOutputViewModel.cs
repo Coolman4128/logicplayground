@@ -2,12 +2,15 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace LogicPlayground.ViewModels.LogicBlocks.Outputs;
 
-public partial class LogAnalogOutputViewModel : LogicBlockViewModel
+public partial class VariableAnalogOutputViewModel : LogicBlockViewModel
 {
     [ObservableProperty]
     private double _value;
 
-    public LogAnalogOutputViewModel(LogicCanvasViewModel canvasViewModel) : base(canvasViewModel)
+    [ObservableProperty]
+    private string _name = "NewVariable";
+
+    public VariableAnalogOutputViewModel(LogicCanvasViewModel canvasViewModel) : base(canvasViewModel)
     {
         Value = 0.0;
         Inputs.Add(new ConnectionPointInputViewModel(Enums.ConnectionTypeEnum.Analog));
@@ -16,5 +19,6 @@ public partial class LogAnalogOutputViewModel : LogicBlockViewModel
     public override void Process()
     {
         Value = Inputs[0].Value;
+        CanvasViewModel.SetVarValue(Name, Value);
     }
 }

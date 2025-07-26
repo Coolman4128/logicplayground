@@ -42,13 +42,17 @@ namespace LogicPlayground.ViewModels.LogicBlocks
 
         public ObservableCollection<ConnectionPointInputViewModel> Inputs { get; } = new();
         public ObservableCollection<ConnectionPointOutputViewModel> Outputs { get; } = new();
+        
+        [ObservableProperty]
+        private LogicCanvasViewModel _canvasViewModel;
 
-        public LogicBlockViewModel()
+        public LogicBlockViewModel(LogicCanvasViewModel canvasViewModel)
         {
+            CanvasViewModel = canvasViewModel;
             // Set up event handlers to update block size when collections change
             Inputs.CollectionChanged += (_, _) => UpdateBlockSize();
             Outputs.CollectionChanged += (_, _) => UpdateBlockSize();
-            
+
             // Initial size calculation
             UpdateBlockSize();
         }
@@ -59,9 +63,13 @@ namespace LogicPlayground.ViewModels.LogicBlocks
 
         "LogDigitalOutput",
         "LogAnalogOutput",
+        "VariableDigitalOutput",
+        "VariableAnalogOutput",
         "LightOutput",
         "ConstDigitalInput",
         "ConstAnalogInput",
+        "VariableAnalogInput",
+        "VariableDigitalInput",
         "LogicGate",
         "MathFunction",
         "CompareFunction",

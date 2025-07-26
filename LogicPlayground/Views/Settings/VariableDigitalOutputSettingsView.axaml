@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks.Outputs"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="400"
+             x:Class="LogicPlayground.Views.Settings.VariableDigitalOutputSettingsView"
+             x:DataType="vm:VariableDigitalOutputViewModel">
+    
+    <StackPanel Margin="10" Spacing="10">
+        <TextBlock Text="Variable Digital Output Settings" FontSize="16" FontWeight="Bold" />
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Variable Name:" />
+            <TextBox Text="{Binding Name}" 
+                     Watermark="Enter variable name..." />
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Current Value:" />
+            <TextBlock Text="{Binding Value}" 
+                      FontWeight="Bold"
+                      Foreground="Gray" />
+            <TextBlock Text="(Output value - set by connected input)" 
+                      FontSize="10" 
+                      Opacity="0.7" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

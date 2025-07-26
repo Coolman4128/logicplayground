@@ -24,6 +24,10 @@ public static class SettingsPanelFactory
             DigitalToAnalogViewModel dtavm => new DigitalToAnalogSettingsView { DataContext = dtavm },
             DecimalToBinaryViewModel dtbvm => new DecimalToBinarySettingsView { DataContext = dtbvm },
             BinaryToDecimalViewModel btdvm => new BinaryToDecimalSettingsView { DataContext = btdvm },
+            VariableAnalogInputViewModel vaiivm => new VariableAnalogInputSettingsView { DataContext = vaiivm },
+            VariableDigitalInputViewModel vdivm => new VariableDigitalInputSettingsView { DataContext = vdivm },
+            VariableAnalogOutputViewModel vaovm => new VariableAnalogOutputSettingsView { DataContext = vaovm },
+            VariableDigitalOutputViewModel vdovm => new VariableDigitalOutputSettingsView { DataContext = vdovm },
             _ => null
         };
     }

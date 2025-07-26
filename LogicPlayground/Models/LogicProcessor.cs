@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
@@ -11,6 +12,8 @@ namespace LogicPlayground.Models;
 public partial class LogicProcessor : ObservableObject
 {
     public ObservableCollection<LogicBlockViewModel> Blocks { get; } = new ObservableCollection<LogicBlockViewModel>();
+
+    public Dictionary<string, double> Variables { get; } = new Dictionary<string, double>();
 
     public static LogicProcessor Instance { get; private set; } = new LogicProcessor();
 

@@ -20,7 +20,7 @@ public partial class BinaryToDecimalViewModel : LogicBlockViewModel
         }
     }
 
-    public BinaryToDecimalViewModel()
+    public BinaryToDecimalViewModel(LogicCanvasViewModel canvas) : base(canvas)
     {
         for (int i = 0; i < Bits; i++)
         {

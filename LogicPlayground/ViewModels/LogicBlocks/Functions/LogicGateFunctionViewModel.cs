@@ -36,7 +36,7 @@ public partial class LogicGateFunctionViewModel : LogicBlockViewModel
     [ObservableProperty]
     private LogicGateTypeEnum _gateType;
 
-    public LogicGateFunctionViewModel()
+    public LogicGateFunctionViewModel(LogicCanvasViewModel canvasViewModel) : base(canvasViewModel)
     {
         NumberOfInputs = 2;
         GateType = LogicGateTypeEnum.NAND;

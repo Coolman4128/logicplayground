@@ -17,7 +17,7 @@ public partial class LightOutputViewModel : LogicBlockViewModel
 
     public Color CurrentLightColor => Value ? OnColor : OffColor;
 
-    public LightOutputViewModel()
+    public LightOutputViewModel(LogicCanvasViewModel canvasViewModel) : base(canvasViewModel)
     {
         Value = false;
         Inputs.Add(new ConnectionPointInputViewModel(Enums.ConnectionTypeEnum.Digital));

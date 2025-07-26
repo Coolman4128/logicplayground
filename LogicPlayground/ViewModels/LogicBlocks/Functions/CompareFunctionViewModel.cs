@@ -17,7 +17,7 @@ public partial class CompareFunctionViewModel : LogicBlockViewModel
     [ObservableProperty]
     private double _threshold = 0.0001; // Small threshold for floating-point comparison
 
-    public CompareFunctionViewModel()
+    public CompareFunctionViewModel(LogicCanvasViewModel canvasViewModel) : base(canvasViewModel)
     {
         Inputs.Add(new ConnectionPointInputViewModel(Enums.ConnectionTypeEnum.Analog));
         Inputs.Add(new ConnectionPointInputViewModel(Enums.ConnectionTypeEnum.Analog));

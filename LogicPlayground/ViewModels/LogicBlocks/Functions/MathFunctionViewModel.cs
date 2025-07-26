@@ -15,7 +15,7 @@ public partial class MathFunctionViewModel : LogicBlockViewModel
 
     public MathFunctionTypeEnum[] FunctionTypeOptions { get; } = Enum.GetValues<MathFunctionTypeEnum>();
 
-    public MathFunctionViewModel()
+    public MathFunctionViewModel(LogicCanvasViewModel canvasViewModel) : base(canvasViewModel)
     {
         Inputs.Add(new ConnectionPointInputViewModel(Enums.ConnectionTypeEnum.Analog));
         Inputs.Add(new ConnectionPointInputViewModel(Enums.ConnectionTypeEnum.Analog));

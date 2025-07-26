@@ -22,7 +22,7 @@ public partial class DecimalToBinaryViewModel : LogicBlockViewModel
 
 
 
-    public DecimalToBinaryViewModel()
+    public DecimalToBinaryViewModel(LogicCanvasViewModel canvas) : base(canvas)
     {
         DecimalValue = 0;
         Inputs.Add(new ConnectionPointInputViewModel(Enums.ConnectionTypeEnum.Analog));

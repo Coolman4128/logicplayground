@@ -14,8 +14,10 @@ namespace LogicPlayground.ViewModels
 {
     public partial class LogicCanvasViewModel : ViewModelBase
     {
-        public ObservableCollection<LogicBlockViewModel> Blocks => LogicProcessor.Instance.Blocks;
+        public ObservableCollection<LogicBlockViewModel> Blocks { get; private set; } = null!;
         public ObservableCollection<ConnectionLine> ConnectionLines => ConnectionLineManager.Instance.ConnectionLines;
+
+        public Dictionary<string, double> Variables { get; private set; } = null!;
         public LogicBlockViewModel? SelectedBlock { get; set; } = null;
 
         [ObservableProperty]
@@ -33,13 +35,31 @@ namespace LogicPlayground.ViewModels
 
         private bool _isDragging = false;
 
+        [ObservableProperty]
+        private bool _isUserFunction = false;
+
         public static double CANVASSIZE_WIDTH { get; } = 20000;
-        public static  double CANVASSIZE_HEIGHT { get; } = 10000;
+        public static double CANVASSIZE_HEIGHT { get; } = 10000;
 
 
 
-        public LogicCanvasViewModel()
+
+
+        public LogicCanvasViewModel(bool isUserFunction = false)
         {
+            if (isUserFunction)
+            {
+                IsUserFunction = true;
+                var userFunction = new UserDefinedFunctionViewModel();
+                UserFunctionManager.AddUserFunction(userFunction);
+                Blocks = userFunction.LogicBlocks;
+                Variables = userFunction.Variables;
+            }
+            else
+            {
+                Blocks = LogicProcessor.Instance.Blocks;
+                Variables = LogicProcessor.Instance.Variables;
+            }
 
 
 
@@ -49,17 +69,21 @@ namespace LogicPlayground.ViewModels
         {
             LogicBlockViewModel block = blockType switch
             {
-                "LogicGate" => new LogicGateFunctionViewModel(),
-                "LogDigitalOutput" => new LogDigitalOutputViewModel(),
-                "ConstDigitalInput" => new ConstDigitalInputViewModel(),
-                "ConstAnalogInput" => new ConstAnalogInputViewModel(),
-                "LogAnalogOutput" => new LogAnalogOutputViewModel(),
-                "MathFunction" => new MathFunctionViewModel(),
-                "CompareFunction" => new CompareFunctionViewModel(),
-                "DigitalToAnalog" => new DigitalToAnalogViewModel(),
-                "LightOutput" => new LightOutputViewModel(),
-                "DecimalToBinary" => new DecimalToBinaryViewModel(),
-                "BinaryToDecimal" => new BinaryToDecimalViewModel(),
+                "LogicGate" => new LogicGateFunctionViewModel(this),
+                "LogDigitalOutput" => new LogDigitalOutputViewModel(this),
+                "ConstDigitalInput" => new ConstDigitalInputViewModel(this),
+                "ConstAnalogInput" => new ConstAnalogInputViewModel(this),
+                "LogAnalogOutput" => new LogAnalogOutputViewModel(this),
+                "MathFunction" => new MathFunctionViewModel(this),
+                "CompareFunction" => new CompareFunctionViewModel(this),
+                "DigitalToAnalog" => new DigitalToAnalogViewModel(this),
+                "LightOutput" => new LightOutputViewModel(this),
+                "DecimalToBinary" => new DecimalToBinaryViewModel(this),
+                "BinaryToDecimal" => new BinaryToDecimalViewModel(this),
+                "VariableDigitalOutput" => new VariableDigitalOutputViewModel(this),
+                "VariableAnalogOutput" => new VariableAnalogOutputViewModel(this),
+                "VariableDigitalInput" => new VariableDigitalInputViewModel(this),
+                "VariableAnalogInput" => new VariableAnalogInputViewModel(this),
                 _ => throw new ArgumentException("Unknown block type", nameof(blockType))
             };
 
@@ -86,12 +110,12 @@ namespace LogicPlayground.ViewModels
             // Update camera offset to pan the canvas
             CameraOffsetX += deltaX;
             CameraOffsetY += deltaY;
-            
+
             // Update all connection lines when canvas is panned
             ConnectionLineManager.Instance.UpdateAllLines();
         }
-        
-        
+
+
         public void StopDrag()
         {
             _isDragging = false;
@@ -105,7 +129,7 @@ namespace LogicPlayground.ViewModels
             {
                 b.Deselect();
             }
-            
+
             // Select the clicked block
             block.Select();
             SelectedBlock = block;
@@ -127,6 +151,31 @@ namespace LogicPlayground.ViewModels
                 SelectedBlock.DisconnectAll();
                 LogicProcessor.Instance.RemoveBlock(SelectedBlock);
                 SelectedBlock = null;
+            }
+        }
+
+        public double GetVarValue(string variableName)
+        {
+            if (Variables.TryGetValue(variableName, out double value))
+            {
+                return value;
+            }
+            else
+            {
+                Variables[variableName] = 0.0; // Initialize if not found
+                return 0.0;
+            }
+        }
+        
+        public void SetVarValue(string variableName, double value)
+        {
+            if (Variables.ContainsKey(variableName))
+            {
+                Variables[variableName] = value;
+            }
+            else
+            {
+                Variables.Add(variableName, value);
             }
         }
        

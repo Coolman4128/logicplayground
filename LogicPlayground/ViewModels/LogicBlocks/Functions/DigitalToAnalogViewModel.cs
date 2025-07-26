@@ -13,7 +13,7 @@ public partial class DigitalToAnalogViewModel : LogicBlockViewModel
     [ObservableProperty]
     private double _falseValue = 0.0; // Example false value for digital to analog conversion
 
-    public DigitalToAnalogViewModel()
+    public DigitalToAnalogViewModel(LogicCanvasViewModel canvas) : base(canvas)
 
     {
         Inputs.Add(new ConnectionPointInputViewModel(Enums.ConnectionTypeEnum.Digital));

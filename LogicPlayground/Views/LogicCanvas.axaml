@@ -54,6 +54,25 @@
         <DataTemplate x:DataType="logic:Functions.BinaryToDecimalViewModel">
             <views:BinaryToDecimal behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
         </DataTemplate>
+
+        <DataTemplate x:DataType="logic:Outputs.VariableAnalogOutputViewModel">
+            <views:VariableAnalogOutput behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="logic:Inputs.VariableAnalogInputViewModel">
+            <views:VariableAnalogInput behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
+
+        </DataTemplate>
+
+        <DataTemplate x:DataType="logic:Outputs.VariableDigitalOutputViewModel">
+            <views:VariableDigitalOutput behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
+
+        </DataTemplate>
+
+        <DataTemplate x:DataType="logic:Inputs.VariableDigitalInputViewModel">
+            <views:VariableDigitalInput behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
+
+        </DataTemplate>
         
         <DataTemplate x:DataType="logic:LogicBlockViewModel">
             <views:LogicBlock behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>

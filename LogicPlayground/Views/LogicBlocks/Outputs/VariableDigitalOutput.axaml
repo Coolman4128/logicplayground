@@ -1,0 +1,17 @@
+<views:LogicBlockBase xmlns="https://github.com/avaloniaui"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks.Outputs"
+                     xmlns:views="using:LogicPlayground.Views"
+                     x:Class="LogicPlayground.Views.VariableDigitalOutput"
+                     x:DataType="vm:VariableDigitalOutputViewModel"
+                     Width="{Binding BlockWidth}" Height="{Binding BlockHeight}">
+    
+    <!-- Only the middle content is defined here -->
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Text="VAR" HorizontalAlignment="Center" FontWeight="Bold" FontSize="12" Opacity="0.7"/>
+        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="14" TextWrapping="Wrap" MaxWidth="80"/>
+        <TextBlock Text="{Binding Value}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" TextWrapping="Wrap"/>
+        <TextBlock Text="Digital" HorizontalAlignment="Center" FontSize="10" Opacity="0.7"/>
+    </StackPanel>
+
+</views:LogicBlockBase>
