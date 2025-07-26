@@ -3,7 +3,7 @@ using LogicPlayground.ViewModels;
 
 namespace LogicPlayground.Views
 {
-    public partial class BinaryToDecimal : UserControl
+    public partial class BinaryToDecimal : LogicBlockBase
     {
         public BinaryToDecimal()
         {

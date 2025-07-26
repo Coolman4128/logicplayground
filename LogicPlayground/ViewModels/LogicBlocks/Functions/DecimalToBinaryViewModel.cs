@@ -28,7 +28,7 @@ public partial class DecimalToBinaryViewModel : LogicBlockViewModel
         Inputs.Add(new ConnectionPointInputViewModel(Enums.ConnectionTypeEnum.Analog));
         for (int i = 0; i < Bits; i++)
         {
-            Outputs.Add(new ConnectionPointOutputViewModel(Enums.ConnectionTypeEnum.Analog));
+            Outputs.Add(new ConnectionPointOutputViewModel(Enums.ConnectionTypeEnum.Digital));
         }
         
     }

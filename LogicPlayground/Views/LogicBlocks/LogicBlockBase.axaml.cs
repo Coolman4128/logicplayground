@@ -1,11 +1,10 @@
 using Avalonia.Controls;
-using LogicPlayground.ViewModels;
 
 namespace LogicPlayground.Views
 {
-    public partial class DecimalToBinary : LogicBlockBase
+    public partial class LogicBlockBase : ContentControl
     {
-        public DecimalToBinary()
+        public LogicBlockBase()
         {
             InitializeComponent();
         }

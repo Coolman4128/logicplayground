@@ -3,7 +3,7 @@ using LogicPlayground.ViewModels;
 
 namespace LogicPlayground.Views
 {
-    public partial class DigitalToAnalog : UserControl
+    public partial class DigitalToAnalog : LogicBlockBase
     {
         public DigitalToAnalog()
         {

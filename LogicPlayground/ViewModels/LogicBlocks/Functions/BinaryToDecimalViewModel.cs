@@ -40,6 +40,7 @@ public partial class BinaryToDecimalViewModel : LogicBlockViewModel
             }
         }
         OutputValue = value;
+        Outputs[0].Value = OutputValue;
     }
 
     public void ChangeInputNumber(int inputs)
