@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using LogicPlayground.ViewModels;
 
@@ -17,6 +18,29 @@ public static class UserFunctionManager
         UserFunctions.Remove(function);
     }
 
-    
+    public static UserDefinedFunctionViewModel? GetUserFunctionById(Guid id)
+    {
+        foreach (var function in UserFunctions)
+        {
+            if (function.Id == id)
+            {
+                return function;
+            }
+        }
+        return null;
+    }
+
+    public static UserDefinedFunctionViewModel? GetUserFunctionByName(string name)
+    {
+        foreach (var function in UserFunctions)
+        {
+            if (function.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+            {
+                return function;
+            }
+        }
+        return null;
+    }
+
 
 }

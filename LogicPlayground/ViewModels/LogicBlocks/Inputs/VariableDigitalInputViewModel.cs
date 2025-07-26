@@ -11,7 +11,7 @@ public partial class VariableDigitalInputViewModel : LogicBlockViewModel
     [ObservableProperty]
     private string _variableName = "NewVariable";
 
-    public Dictionary<string, double> Variables { get; } = null!;
+    public Dictionary<string, double> Variables { get; set; } = null!;
 
     public VariableDigitalInputViewModel(LogicCanvasViewModel canvasViewModel) : base(canvasViewModel)
     {

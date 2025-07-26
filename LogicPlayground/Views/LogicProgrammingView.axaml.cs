@@ -24,4 +24,31 @@ public partial class LogicProgrammingView : UserControl
             comboBox.SelectedIndex = -1;
         }
     }
+
+    private void UserFunctionSelector_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (sender is ComboBox comboBox && comboBox.SelectedItem is UserDefinedFunctionViewModel selectedFunction)
+        {
+            // Call the command on the ViewModel
+            if (DataContext is LogicProgrammingViewModel viewModel)
+            {
+                viewModel.AddUserDefinedFunctionBlockCommand.Execute(selectedFunction.Name);
+            }
+            
+            // Reset the selection to allow selecting the same item again
+            comboBox.SelectedIndex = -1;
+        }
+    }
+
+    private void SwitchFunctionSelector_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (sender is ComboBox comboBox && comboBox.SelectedItem is UserDefinedFunctionViewModel selectedFunction)
+        {
+            // Call the command on the ViewModel
+            if (DataContext is LogicProgrammingViewModel viewModel)
+            {
+                viewModel.SwitchToUserFunctionCommand.Execute(selectedFunction);
+            }
+        }
+    }
 }

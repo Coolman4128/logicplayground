@@ -31,6 +31,43 @@
                       SelectedIndex="-1"
                       SelectionChanged="LogicBlockSelector_SelectionChanged"
                       PlaceholderText="Select a logic block to add..." />
+            
+            <ComboBox Name="UserFunctionSelector" 
+                      Width="200" 
+                      Margin="5"
+                      ItemsSource="{Binding UserDefinedFunctions}"
+                      SelectedIndex="-1"
+                      SelectionChanged="UserFunctionSelector_SelectionChanged"
+                      PlaceholderText="Add user function block..." >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            
+            <Button Content="New Function" 
+                    Margin="5"
+                    Command="{Binding CreateNewUserFunctionCommand}" />
+            
+            <ComboBox Name="SwitchFunctionSelector" 
+                      Width="200" 
+                      Margin="5"
+                      ItemsSource="{Binding UserDefinedFunctions}"
+                      SelectedItem="{Binding SelectedUserFunction}"
+                      SelectionChanged="SwitchFunctionSelector_SelectionChanged"
+                      PlaceholderText="Switch to function..." >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            
+            <Button Content="Main Canvas" 
+                    Margin="5"
+                    Command="{Binding SwitchToMainCanvasCommand}"
+                    IsVisible="{Binding IsInUserFunction}" />
         </StackPanel>
         
         <!-- Canvas area -->

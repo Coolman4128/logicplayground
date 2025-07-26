@@ -38,12 +38,11 @@ namespace LogicPlayground.ViewModels
         [ObservableProperty]
         private bool _isUserFunction = false;
 
+        [ObservableProperty]
+        private UserDefinedFunctionViewModel? _currentUserFunction;
+
         public static double CANVASSIZE_WIDTH { get; } = 20000;
         public static double CANVASSIZE_HEIGHT { get; } = 10000;
-
-
-
-
 
         public LogicCanvasViewModel(bool isUserFunction = false)
         {
@@ -52,6 +51,7 @@ namespace LogicPlayground.ViewModels
                 IsUserFunction = true;
                 var userFunction = new UserDefinedFunctionViewModel();
                 UserFunctionManager.AddUserFunction(userFunction);
+                CurrentUserFunction = userFunction;
                 Blocks = userFunction.LogicBlocks;
                 Variables = userFunction.Variables;
             }
@@ -60,9 +60,14 @@ namespace LogicPlayground.ViewModels
                 Blocks = LogicProcessor.Instance.Blocks;
                 Variables = LogicProcessor.Instance.Variables;
             }
+        }
 
-
-
+        public LogicCanvasViewModel(UserDefinedFunctionViewModel userFunction)
+        {
+            IsUserFunction = true;
+            CurrentUserFunction = userFunction;
+            Blocks = userFunction.LogicBlocks;
+            Variables = userFunction.Variables;
         }
 
         public void AddLogicBlock(string blockType)
@@ -87,7 +92,56 @@ namespace LogicPlayground.ViewModels
                 _ => throw new ArgumentException("Unknown block type", nameof(blockType))
             };
 
-            LogicProcessor.Instance.AddBlock(block);
+            if (IsUserFunction && CurrentUserFunction != null)
+            {
+                // Add to the user function's blocks collection
+                Blocks.Add(block);
+                
+                // Update variable blocks to use the user function's variables
+                if (block is VariableAnalogInputViewModel varai)
+                {
+                    varai.Variables = Variables;
+                }
+                if (block is VariableDigitalInputViewModel vardi)
+                {
+                    vardi.Variables = Variables;
+                }
+                if (block is VariableAnalogOutputViewModel varaout)
+                {
+                    varaout.Variables = Variables;
+                }
+                if (block is VariableDigitalOutputViewModel vardout)
+                {
+                    vardout.Variables = Variables;
+                }
+            }
+            else
+            {
+                // Add to the main logic processor
+                LogicProcessor.Instance.AddBlock(block);
+            }
+            
+            SelectedBlock = block;
+        }
+
+        public void AddUserDefinedFunctionBlock(string name)
+        {
+            var function = UserFunctionManager.GetUserFunctionByName(name);
+            if (function == null)
+                throw new ArgumentException($"User-defined function '{name}' not found.", nameof(name));
+            var block = new UserDefinedFunctionBlockViewModel(this, function);
+            
+            if (IsUserFunction && CurrentUserFunction != null)
+            {
+                // Add to the user function's blocks collection
+                Blocks.Add(block);
+            }
+            else
+            {
+                // Add to the main logic processor
+                LogicProcessor.Instance.AddBlock(block);
+            }
+            
             SelectedBlock = block;
         }
 
@@ -149,7 +203,18 @@ namespace LogicPlayground.ViewModels
             if (SelectedBlock != null)
             {
                 SelectedBlock.DisconnectAll();
-                LogicProcessor.Instance.RemoveBlock(SelectedBlock);
+                
+                if (IsUserFunction && CurrentUserFunction != null)
+                {
+                    // Remove from the user function's blocks collection
+                    Blocks.Remove(SelectedBlock);
+                }
+                else
+                {
+                    // Remove from the main logic processor
+                    LogicProcessor.Instance.RemoveBlock(SelectedBlock);
+                }
+                
                 SelectedBlock = null;
             }
         }

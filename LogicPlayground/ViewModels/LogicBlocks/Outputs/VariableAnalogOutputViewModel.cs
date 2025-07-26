@@ -11,7 +11,7 @@ public partial class VariableAnalogOutputViewModel : LogicBlockViewModel
     [ObservableProperty]
     private string _name = "NewVariable";
 
-    public Dictionary<string, double> Variables { get; } = null!;
+    public Dictionary<string, double> Variables { get; set; } = null!;
 
     public VariableAnalogOutputViewModel(LogicCanvasViewModel canvasViewModel) : base(canvasViewModel)
     {
