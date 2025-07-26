@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks.Outputs"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="400"
+             x:Class="LogicPlayground.Views.Settings.LightOutputSettingsView"
+             x:DataType="vm:LightOutputViewModel">
+    
+    <StackPanel Margin="10" Spacing="10">
+        <TextBlock Text="Light Output Settings" FontSize="16" FontWeight="Bold" />
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Off Color (False):" />
+            <Border Background="{Binding OffColor}" Height="30" Width="100" 
+                    BorderBrush="Black" BorderThickness="1" CornerRadius="3"/>
+            <TextBlock Text="{Binding OffColor}" FontSize="12" Opacity="0.7"/>
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="On Color (True):" />
+            <Border Background="{Binding OnColor}" Height="30" Width="100" 
+                    BorderBrush="Black" BorderThickness="1" CornerRadius="3"/>
+            <TextBlock Text="{Binding OnColor}" FontSize="12" Opacity="0.7"/>
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Current State:" />
+            <TextBlock Text="{Binding Value}" FontWeight="Bold"/>
+            <Ellipse Width="40" Height="40" StrokeThickness="2" Stroke="Black">
+                <Ellipse.Fill>
+                    <SolidColorBrush Color="{Binding CurrentLightColor}"/>
+                </Ellipse.Fill>
+            </Ellipse>
+        </StackPanel>
+        
+        <TextBlock Text="Note: Colors can be modified programmatically in the ViewModel" 
+                   FontSize="10" Opacity="0.6" TextWrapping="Wrap"/>
+    </StackPanel>
+</UserControl>

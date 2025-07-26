@@ -20,7 +20,10 @@ public static class SettingsPanelFactory
             ConstDigitalInputViewModel cdivm => new ConstDigitalInputSettingsView { DataContext = cdivm },
             LogAnalogOutputViewModel laovm => new LogAnalogOutputSettingsView { DataContext = laovm },
             LogDigitalOutputViewModel ldovm => new LogDigitalOutputSettingsView { DataContext = ldovm },
+            LightOutputViewModel lovm => new LightOutputSettingsView { DataContext = lovm },
             DigitalToAnalogViewModel dtavm => new DigitalToAnalogSettingsView { DataContext = dtavm },
+            DecimalToBinaryViewModel dtbvm => new DecimalToBinarySettingsView { DataContext = dtbvm },
+            BinaryToDecimalViewModel btdvm => new BinaryToDecimalSettingsView { DataContext = btdvm },
             _ => null
         };
     }

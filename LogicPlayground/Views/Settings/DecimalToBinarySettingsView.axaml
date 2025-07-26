@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks.Functions"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="400"
+             x:Class="LogicPlayground.Views.Settings.DecimalToBinarySettingsView"
+             x:DataType="vm:DecimalToBinaryViewModel">
+    
+    <StackPanel Margin="10" Spacing="10">
+        <TextBlock Text="Decimal to Binary Converter Settings" FontSize="16" FontWeight="Bold" />
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Number of Bits:" />
+            <NumericUpDown Value="{Binding Bits}" 
+                          Increment="1" 
+                          Minimum="1"
+                          Maximum="64"
+                          ShowButtonSpinner="True"
+                          FormatString="F0" />
+            <TextBlock Text="Range: 1-64 bits" FontSize="10" Opacity="0.7" />
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Input Value:" />
+            <TextBlock Text="{Binding DecimalValue}" 
+                      FontWeight="Bold" 
+                      FontSize="16"
+                      HorizontalAlignment="Left"/>
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Binary Output (LSB to MSB):" />
+            <ScrollViewer MaxHeight="200" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Outputs}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" Spacing="2"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" 
+                                          Text="{Binding Name}" 
+                                          FontSize="12" 
+                                          VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" 
+                                          Text="{Binding Value, StringFormat=F0}" 
+                                          FontWeight="Bold" 
+                                          FontSize="12" 
+                                          VerticalAlignment="Center"
+                                          Margin="10,0,0,0"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Binary Representation:" />
+            <TextBlock FontFamily="Consolas, Monaco, monospace" 
+                      FontSize="12" 
+                      Text="{Binding DecimalValue, StringFormat=Decimal Value: {0}}"
+                      Background="LightGray" 
+                      Padding="5"
+                      TextWrapping="Wrap"/>
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Information:" />
+            <TextBlock FontSize="11" 
+                      Opacity="0.8" 
+                      TextWrapping="Wrap"
+                      Text="This block converts a decimal (analog) input value to binary outputs. Each output represents one bit, with the first output being the least significant bit (LSB) and the last output being the most significant bit (MSB)."/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

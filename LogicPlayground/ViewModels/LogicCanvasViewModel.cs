@@ -57,6 +57,9 @@ namespace LogicPlayground.ViewModels
                 "MathFunction" => new MathFunctionViewModel(),
                 "CompareFunction" => new CompareFunctionViewModel(),
                 "DigitalToAnalog" => new DigitalToAnalogViewModel(),
+                "LightOutput" => new LightOutputViewModel(),
+                "DecimalToBinary" => new DecimalToBinaryViewModel(),
+                "BinaryToDecimal" => new BinaryToDecimalViewModel(),
                 _ => throw new ArgumentException("Unknown block type", nameof(blockType))
             };
 

@@ -56,15 +56,18 @@ namespace LogicPlayground.ViewModels.LogicBlocks
         // PUT EVERY BLOCK TYPE HERE
         public static List<string> BlockTypes { get; } = new()
         {
-            
+
         "LogDigitalOutput",
         "LogAnalogOutput",
+        "LightOutput",
         "ConstDigitalInput",
         "ConstAnalogInput",
         "LogicGate",
         "MathFunction",
         "CompareFunction",
         "DigitalToAnalog",
+        "DecimalToBinary",
+        "BinaryToDecimal",
 
         };
 

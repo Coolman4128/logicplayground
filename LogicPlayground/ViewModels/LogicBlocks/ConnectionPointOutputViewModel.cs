@@ -55,6 +55,15 @@ public partial class ConnectionPointOutputViewModel : ConnectionPointViewModel
         }
     }
 
+    public void DisconnectAll()
+    {
+        var copyList = new ObservableCollection<ConnectionPointInputViewModel>(ConnectedInputs);
+        foreach (var input in copyList)
+        {
+            Disconnect(input);
+        }
+    }
+
     public void Disconnect(Guid guid)
     {
         var input = ConnectedInputs.FirstOrDefault(i => i.Id == guid);
