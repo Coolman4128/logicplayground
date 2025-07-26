@@ -69,7 +69,6 @@ public static class ConnectionLineSelectionBehavior
         if (e.Key == Key.Delete || e.Key == Key.Back)
         {
             ConnectionLineManager.Instance.DeleteSelectedConnectionLine();
-            e.Handled = true;
         }
     }
 

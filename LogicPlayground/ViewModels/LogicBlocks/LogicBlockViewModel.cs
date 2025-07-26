@@ -31,6 +31,8 @@ namespace LogicPlayground.ViewModels.LogicBlocks
         [ObservableProperty]
         private double _originalY;
 
+        [ObservableProperty]
+        private bool _isSelected = false;
 
         public ObservableCollection<ConnectionPointInputViewModel> Inputs { get; } = new();
         public ObservableCollection<ConnectionPointOutputViewModel> Outputs { get; } = new();
@@ -55,7 +57,21 @@ namespace LogicPlayground.ViewModels.LogicBlocks
         }
 
 
+        public void DisconnectAll()
+        {
+            foreach (var input in Inputs)
+            {
+                input.Disconnect();
+            }
 
+            foreach (var output in Outputs)
+            {
+                foreach (var connection in output.ConnectedInputs)
+                {
+                    connection.Disconnect();
+                }
+            }
+        }
 
         public void StartDrag(Point position)
         {
@@ -84,6 +100,16 @@ namespace LogicPlayground.ViewModels.LogicBlocks
         public void EndDrag()
         {
             IsDragging = false;
+        }
+
+        public void Select()
+        {
+            IsSelected = true;
+        }
+
+        public void Deselect()
+        {
+            IsSelected = false;
         }
     }
 }

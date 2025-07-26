@@ -93,6 +93,38 @@ namespace LogicPlayground.ViewModels
             _isDragging = false;
             _lastPanPoint = null;
         }
+
+        public void SelectBlock(LogicBlockViewModel block)
+        {
+            // Deselect all other blocks
+            foreach (var b in Blocks)
+            {
+                b.Deselect();
+            }
+            
+            // Select the clicked block
+            block.Select();
+            SelectedBlock = block;
+        }
+
+        public void DeselectAllBlocks()
+        {
+            foreach (var block in Blocks)
+            {
+                block.Deselect();
+            }
+            SelectedBlock = null;
+        }
+
+        public void DeleteSelectedBlock()
+        {
+            if (SelectedBlock != null)
+            {
+                SelectedBlock.DisconnectAll();
+                LogicProcessor.Instance.RemoveBlock(SelectedBlock);
+                SelectedBlock = null;
+            }
+        }
        
 
        

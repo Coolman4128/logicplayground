@@ -3,11 +3,15 @@
              xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks.Inputs"
              xmlns:behav="clr-namespace:LogicPlayground.Behaviors"
              xmlns:views="using:LogicPlayground.Views"
+             xmlns:converters="using:LogicPlayground.Converters"
              x:Class="LogicPlayground.Views.ConstDigitalInput"
              x:DataType="vm:ConstDigitalInputViewModel"
              Width="200" Height="200">
 
-    <Border Width="200" Height="200" BorderBrush="White" BorderThickness="1" Background="Transparent" CornerRadius="6">
+    <Border Width="200" Height="200" BorderThickness="1" Background="Transparent" CornerRadius="6">
+        <Border.BorderBrush>
+            <SolidColorBrush Color="{Binding IsSelected, Converter={x:Static converters:BoolToColorConverter.Instance}}" />
+        </Border.BorderBrush>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50" MinWidth="50"/>

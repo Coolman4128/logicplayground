@@ -54,6 +54,8 @@ public static class CanvasMovementBehavior
             {
                 if (e.GetCurrentPoint(control).Properties.IsLeftButtonPressed)
                 {
+                    // Deselect all blocks when clicking on empty canvas area
+                    vm.DeselectAllBlocks();
                     vm.StartDrag(e.GetPosition(control));
                 }
             }

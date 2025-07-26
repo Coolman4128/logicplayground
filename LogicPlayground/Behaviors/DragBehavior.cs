@@ -5,6 +5,7 @@ using Avalonia.VisualTree;
 using Avalonia.ReactiveUI;
 using System.Net.Mail;
 using LogicPlayground.ViewModels.LogicBlocks;
+using LogicPlayground.ViewModels;
 using System;
 
 namespace LogicPlayground.Behaviors;
@@ -46,6 +47,14 @@ public static class DragBehavior
                 {
                     var point = e.GetPosition(parentCanvas);
                     viewModel.StartDrag(point);
+                    
+                    // Handle block selection
+                    var canvasViewModel = FindLogicCanvasViewModel(control);
+                    if (canvasViewModel != null)
+                    {
+                        canvasViewModel.SelectBlock(viewModel);
+                    }
+                    
                     e.Pointer.Capture(control);
                     e.Handled = true; // Mark the event as handled to prevent further processing
                 }
@@ -94,6 +103,19 @@ public static class DragBehavior
             if (visual is Panel panel)
                 return panel;
             visual = visual.GetVisualParent() as Visual;
+        }
+        return null;
+    }
+
+    // Helper to find the LogicCanvasViewModel in the visual tree
+    private static LogicCanvasViewModel? FindLogicCanvasViewModel(Control control)
+    {
+        var current = control.Parent;
+        while (current != null)
+        {
+            if (current.DataContext is LogicCanvasViewModel canvasVm)
+                return canvasVm;
+            current = current.Parent;
         }
         return null;
     }
