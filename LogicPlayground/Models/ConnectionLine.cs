@@ -86,9 +86,9 @@ public partial class ConnectionLine : ObservableObject
 
     private Point GetRelativeConnectionPointPosition(ConnectionPointViewModel connectionPoint, LogicBlockViewModel parentBlock)
     {
-        const double blockWidth = 200;
-        const double blockHeight = 200;
-        const double connectionPointSpacing = 24; // Approximate spacing between connection points
+        var blockWidth = parentBlock.BlockWidth;
+        var blockHeight = parentBlock.BlockHeight;
+        const double connectionPointSpacing = 18.7; // Approximate spacing between connection points
         
         if (connectionPoint is ConnectionPointInputViewModel input)
         {

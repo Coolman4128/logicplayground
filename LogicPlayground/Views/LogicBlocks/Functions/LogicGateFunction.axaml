@@ -7,9 +7,9 @@
              x:Class="LogicPlayground.Views.LogicGateFunction"
              x:DataType="vm:LogicGateFunctionViewModel"
              
-             Width="200" Height="200">
+             Width="{Binding BlockWidth}" Height="{Binding BlockHeight}">
 
-    <Border Width="200" Height="200" BorderThickness="1" Background="Transparent" CornerRadius="6">
+    <Border Width="{Binding BlockWidth}" Height="{Binding BlockHeight}" BorderThickness="1" Background="Transparent" CornerRadius="6">
         <Border.BorderBrush>
             <SolidColorBrush Color="{Binding IsSelected, Converter={x:Static converters:BoolToColorConverter.Instance}}" />
         </Border.BorderBrush>

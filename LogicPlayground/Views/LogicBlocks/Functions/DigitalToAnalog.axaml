@@ -1,13 +1,13 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks"
+             xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks.Functions"
              xmlns:behav="clr-namespace:LogicPlayground.Behaviors"
              xmlns:views="using:LogicPlayground.Views"
              xmlns:converters="using:LogicPlayground.Converters"
-             x:Class="LogicPlayground.Views.LogicBlock"
-             x:DataType="vm:LogicBlockViewModel"
+             x:Class="LogicPlayground.Views.DigitalToAnalog"
+             x:DataType="vm:DigitalToAnalogViewModel"
+             
              Width="{Binding BlockWidth}" Height="{Binding BlockHeight}">
-
 
     <Border Width="{Binding BlockWidth}" Height="{Binding BlockHeight}" BorderThickness="1" Background="Transparent" CornerRadius="6">
         <Border.BorderBrush>
@@ -39,7 +39,11 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
             <!-- Block content (center) PUT ALL BLOCK CONTENT HERE -->
-            <TextBlock Grid.Column="1" Text="{Binding Guid}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12" TextWrapping="Wrap"/>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="D→A" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16" TextWrapping="Wrap"/>
+                <TextBlock Text="Converter" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" Opacity="0.7"/>
+                <TextBlock Text="{Binding OutputValue, StringFormat=F2}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" Margin="0,4,0,0" FontWeight="Bold"/>
+            </StackPanel>
             <!-- Outputs on the right -->
             <ItemsControl Grid.Column="2" ItemsSource="{Binding Outputs}">
                 <ItemsControl.ItemsPanel>

@@ -34,20 +34,37 @@ namespace LogicPlayground.ViewModels.LogicBlocks
         [ObservableProperty]
         private bool _isSelected = false;
 
+        [ObservableProperty]
+        private double _blockWidth = 200;
+
+        [ObservableProperty]
+        private double _blockHeight = 200;
+
         public ObservableCollection<ConnectionPointInputViewModel> Inputs { get; } = new();
         public ObservableCollection<ConnectionPointOutputViewModel> Outputs { get; } = new();
 
+        public LogicBlockViewModel()
+        {
+            // Set up event handlers to update block size when collections change
+            Inputs.CollectionChanged += (_, _) => UpdateBlockSize();
+            Outputs.CollectionChanged += (_, _) => UpdateBlockSize();
+            
+            // Initial size calculation
+            UpdateBlockSize();
+        }
 
         // PUT EVERY BLOCK TYPE HERE
         public static List<string> BlockTypes { get; } = new()
         {
-            "LogicGate",
+            
         "LogDigitalOutput",
+        "LogAnalogOutput",
         "ConstDigitalInput",
         "ConstAnalogInput",
-        "LogAnalogOutput",
+        "LogicGate",
         "MathFunction",
         "CompareFunction",
+        "DigitalToAnalog",
 
         };
 
@@ -66,7 +83,8 @@ namespace LogicPlayground.ViewModels.LogicBlocks
 
             foreach (var output in Outputs)
             {
-                foreach (var connection in output.ConnectedInputs)
+                var copyOutputs = new List<ConnectionPointInputViewModel>(output.ConnectedInputs);
+                foreach (var connection in copyOutputs)
                 {
                     connection.Disconnect();
                 }
@@ -110,6 +128,21 @@ namespace LogicPlayground.ViewModels.LogicBlocks
         public void Deselect()
         {
             IsSelected = false;
+        }
+
+        protected void UpdateBlockSize()
+        {
+            const double minSize = 200;
+            const double connectionSpacing = 20;
+            
+            var inputHeight = Math.Max(minSize, Inputs.Count * connectionSpacing);
+            var outputHeight = Math.Max(minSize, Outputs.Count * connectionSpacing);
+            
+            BlockHeight = Math.Max(inputHeight, outputHeight);
+            BlockWidth = minSize; // Keep width constant for now
+            
+            // Update connection lines when size changes
+            ConnectionLineManager.Instance.UpdateLinesForBlock(this);
         }
     }
 }

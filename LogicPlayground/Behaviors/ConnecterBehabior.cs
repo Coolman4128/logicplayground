@@ -356,9 +356,9 @@ public static class ConnecterBehavior
 
     private static Point GetRelativeConnectionPointPosition(ConnectionPointViewModel connectionPoint, LogicBlockViewModel parentBlock)
     {
-        const double blockWidth = 200;
-        const double blockHeight = 200;
-        const double connectionPointSpacing = 24; // Approximate spacing between connection points
+        var blockWidth = parentBlock.BlockWidth;
+        var blockHeight = parentBlock.BlockHeight;
+        const double connectionPointSpacing = 22; // Approximate spacing between connection points
         
         if (connectionPoint is ConnectionPointInputViewModel input)
         {

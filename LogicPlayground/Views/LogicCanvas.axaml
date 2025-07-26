@@ -39,6 +39,10 @@
             <views:MathFunction behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
         </DataTemplate>
         
+        <DataTemplate x:DataType="logic:Functions.DigitalToAnalogViewModel">
+            <views:DigitalToAnalog behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
+        </DataTemplate>
+        
         <DataTemplate x:DataType="logic:LogicBlockViewModel">
             <views:LogicBlock behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
         </DataTemplate>

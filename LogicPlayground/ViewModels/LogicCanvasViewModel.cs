@@ -56,6 +56,7 @@ namespace LogicPlayground.ViewModels
                 "LogAnalogOutput" => new LogAnalogOutputViewModel(),
                 "MathFunction" => new MathFunctionViewModel(),
                 "CompareFunction" => new CompareFunctionViewModel(),
+                "DigitalToAnalog" => new DigitalToAnalogViewModel(),
                 _ => throw new ArgumentException("Unknown block type", nameof(blockType))
             };
 
