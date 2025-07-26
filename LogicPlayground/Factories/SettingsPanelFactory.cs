@@ -14,6 +14,8 @@ public static class SettingsPanelFactory
         return viewModel switch
         {
             LogicGateFunctionViewModel lgfvm => new LogicGateFunctionSettingsView { DataContext = lgfvm },
+            CompareFunctionViewModel cfvm => new CompareFunctionSettingsView { DataContext = cfvm },
+            MathFunctionViewModel mfvm => new MathFunctionSettingsView { DataContext = mfvm },
             ConstAnalogInputViewModel caivm => new ConstAnalogInputSettingsView { DataContext = caivm },
             ConstDigitalInputViewModel cdivm => new ConstDigitalInputSettingsView { DataContext = cdivm },
             LogAnalogOutputViewModel laovm => new LogAnalogOutputSettingsView { DataContext = laovm },

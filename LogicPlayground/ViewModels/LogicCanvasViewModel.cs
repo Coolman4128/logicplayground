@@ -54,6 +54,8 @@ namespace LogicPlayground.ViewModels
                 "ConstDigitalInput" => new ConstDigitalInputViewModel(),
                 "ConstAnalogInput" => new ConstAnalogInputViewModel(),
                 "LogAnalogOutput" => new LogAnalogOutputViewModel(),
+                "MathFunction" => new MathFunctionViewModel(),
+                "CompareFunction" => new CompareFunctionViewModel(),
                 _ => throw new ArgumentException("Unknown block type", nameof(blockType))
             };
 

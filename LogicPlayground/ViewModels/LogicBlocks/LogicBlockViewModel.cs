@@ -39,8 +39,14 @@ namespace LogicPlayground.ViewModels.LogicBlocks
         // PUT EVERY BLOCK TYPE HERE
         public static List<string> BlockTypes { get; } = new()
         {
-            "LogicGateFunction",
-            "LogicBlock"
+            "LogicGate",
+        "LogDigitalOutput",
+        "ConstDigitalInput",
+        "ConstAnalogInput",
+        "LogAnalogOutput",
+        "MathFunction",
+        "CompareFunction",
+
         };
 
         public virtual void Process()
@@ -68,7 +74,7 @@ namespace LogicPlayground.ViewModels.LogicBlocks
                 var deltaY = position.Y - StartPoint.Y;
                 BlockPositionX = OriginalX + deltaX;
                 BlockPositionY = OriginalY + deltaY;
-                
+
                 // Update connection lines for this block when it moves
                 ConnectionLineManager.Instance.UpdateLinesForBlock(this);
             }

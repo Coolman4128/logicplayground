@@ -30,6 +30,14 @@
         <DataTemplate x:DataType="logic:Outputs.LogDigitalOutputViewModel">
                 <views:LogDigitalOutput behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
         </DataTemplate>
+
+        <DataTemplate x:DataType="logic:Functions.CompareFunctionViewModel">
+            <views:CompareFunction behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="logic:Functions.MathFunctionViewModel">
+            <views:MathFunction behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
+        </DataTemplate>
         
         <DataTemplate x:DataType="logic:LogicBlockViewModel">
             <views:LogicBlock behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>

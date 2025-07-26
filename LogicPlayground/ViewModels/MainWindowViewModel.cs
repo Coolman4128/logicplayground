@@ -13,14 +13,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public LogicCanvasViewModel LogicCanvasViewModel { get; } = new LogicCanvasViewModel();
 
-    public List<string> AvailableLogicBlocks { get; } = new List<string>
-    {
-        "LogicGate",
-        "LogDigitalOutput", 
-        "ConstDigitalInput",
-        "ConstAnalogInput",
-        "LogAnalogOutput"
-    };
+    public List<string> AvailableLogicBlocks  => LogicBlockViewModel.BlockTypes;
 
     [ObservableProperty]
     private string? _selectedLogicBlockType;

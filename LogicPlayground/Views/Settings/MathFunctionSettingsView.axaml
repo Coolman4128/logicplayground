@@ -1,0 +1,65 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks.Functions"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="400"
+             x:Class="LogicPlayground.Views.Settings.MathFunctionSettingsView"
+             x:DataType="vm:MathFunctionViewModel">
+    
+    <StackPanel Margin="10" Spacing="10">
+        <TextBlock Text="Math Function Settings" FontSize="16" FontWeight="Bold" />
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Function Type:" />
+            <ComboBox SelectedItem="{Binding FunctionType}" 
+                      Name="FunctionTypeComboBox"
+                      ItemsSource="{Binding FunctionTypeOptions}">
+            </ComboBox>
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Input Values:" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Spacing="2">
+                    <TextBlock Text="Input A:" FontSize="12"/>
+                    <TextBlock Text="{Binding Inputs[0].Value, StringFormat=F3}" 
+                              FontWeight="Bold" FontSize="14"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Spacing="2">
+                    <TextBlock Text="Input B:" FontSize="12"/>
+                    <TextBlock Text="{Binding Inputs[1].Value, StringFormat=F3}" 
+                              FontWeight="Bold" FontSize="14"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Current Result:" />
+            <TextBlock Text="{Binding Result, StringFormat=F6}" 
+                      FontWeight="Bold" 
+                      FontSize="16"/>
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Output Value:" />
+            <TextBlock Text="{Binding Outputs[0].Value, StringFormat=F6}" 
+                      FontWeight="Bold" />
+        </StackPanel>
+        
+        <StackPanel Spacing="5">
+            <TextBlock Text="Function Description:" FontSize="12" FontWeight="SemiBold"/>
+            <TextBlock FontSize="11" Opacity="0.8" TextWrapping="Wrap">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}Performs {0} operation on two analog inputs and outputs the result.">
+                        <Binding Path="FunctionType"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
