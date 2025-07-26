@@ -14,10 +14,28 @@
      <DataTemplate x:DataType="logic:Functions.LogicGateFunctionViewModel">
             <views:LogicGateFunction behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
         </DataTemplate>
+
+        <DataTemplate x:DataType="logic:Inputs.ConstDigitalInputViewModel">
+                <views:ConstDigitalInput behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="logic:Inputs.ConstAnalogInputViewModel">
+                <views:ConstAnalogInput behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="logic:Outputs.LogAnalogOutputViewModel">
+                <views:LogAnalogOutput behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="logic:Outputs.LogDigitalOutputViewModel">
+                <views:LogDigitalOutput behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
+        </DataTemplate>
         
         <DataTemplate x:DataType="logic:LogicBlockViewModel">
             <views:LogicBlock behav:DragBehavior.EnableDrag="True" behav:DoubleClickBehavior.EnableDoubleClick="True"/>
         </DataTemplate>
+
+        
 
         
     </UserControl.DataTemplates>

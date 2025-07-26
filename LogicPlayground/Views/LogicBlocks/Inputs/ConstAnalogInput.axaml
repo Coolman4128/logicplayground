@@ -1,11 +1,10 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks.Functions"
+             xmlns:vm="using:LogicPlayground.ViewModels.LogicBlocks.Inputs"
              xmlns:behav="clr-namespace:LogicPlayground.Behaviors"
              xmlns:views="using:LogicPlayground.Views"
-             x:Class="LogicPlayground.Views.LogicGateFunction"
-             x:DataType="vm:LogicGateFunctionViewModel"
-             
+             x:Class="LogicPlayground.Views.ConstAnalogInput"
+             x:DataType="vm:ConstAnalogInputViewModel"
              Width="200" Height="200">
 
     <Border Width="200" Height="200" BorderBrush="White" BorderThickness="1" Background="Transparent" CornerRadius="6">
@@ -36,8 +35,9 @@
             </ItemsControl>
             <!-- Block content (center) PUT ALL BLOCK CONTENT HERE -->
             <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="{Binding GateType}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16" TextWrapping="Wrap"/>
-                <TextBlock Text="Gate" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" Opacity="0.7"/>
+                <TextBlock Text="CONST" HorizontalAlignment="Center" FontWeight="Bold" FontSize="12" Opacity="0.7"/>
+                <TextBlock Text="{Binding Value, StringFormat='{}{0:F2}'}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" TextWrapping="Wrap"/>
+                <TextBlock Text="Analog" HorizontalAlignment="Center" FontSize="10" Opacity="0.7"/>
             </StackPanel>
             <!-- Outputs on the right -->
             <ItemsControl Grid.Column="2" ItemsSource="{Binding Outputs}">
@@ -57,5 +57,4 @@
             </ItemsControl>
         </Grid>
     </Border>
-
 </UserControl>

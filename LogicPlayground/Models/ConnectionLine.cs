@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia;
+using Avalonia.Layout;
 using CommunityToolkit.Mvvm.ComponentModel;
 using LogicPlayground.ViewModels.LogicBlocks;
 
@@ -118,110 +120,35 @@ public partial class ConnectionLine : ObservableObject
         var deltaY = end.Y - start.Y;
 
         // Minimum distance to move horizontally before turning
-        const double minHorizontalDistance = 10;
+        const double minHorizontalDistance = 5;
 
-        if (System.Math.Abs(deltaX) <= minHorizontalDistance && System.Math.Abs(deltaY) <= minHorizontalDistance)
+        if (Math.Abs(deltaX) < minHorizontalDistance * 2)
         {
-            // Simple direct connection for close points
+            // If the horizontal distance is too small, move vertically
             points.Add(end);
         }
         else
         {
-            // Create path with horizontal segments and 45-degree angles
-            // Ensure at least minHorizontalDistance on both sides
-            var totalHorizontalDistance = System.Math.Abs(deltaX);
-            var availableForMiddle = totalHorizontalDistance - (2 * minHorizontalDistance);
-            
-            double horizontalDistance;
-            if (availableForMiddle > 0)
+            var horizontalDistance = Math.Abs(deltaX) - (minHorizontalDistance * 2);
+            if (Math.Abs(deltaY) <= Math.Abs(horizontalDistance))
             {
-                // We have enough space for minimum distances on both sides
-                horizontalDistance = minHorizontalDistance + (availableForMiddle * 0.6);
-            }
-            else
-            {
-                // Not enough total distance, use half of available distance
-                horizontalDistance = totalHorizontalDistance * 0.5;
-            }
-            
-            // Move horizontally from start
-            var midPoint1 = new Point(start.X + horizontalDistance, start.Y);
-            points.Add(midPoint1);
-            
-            // Calculate remaining deltas
-            var remainingDeltaX = end.X - midPoint1.X;
-            var remainingDeltaY = end.Y - midPoint1.Y;
-            
-            if (System.Math.Abs(remainingDeltaY) > 0)
-            {
-                // Pattern: horizontal -> diagonal -> vertical -> diagonal -> horizontal
-                
-                // First diagonal segment
-                var firstDiagonalDistance = System.Math.Min(System.Math.Abs(remainingDeltaX) * 0.3, System.Math.Abs(remainingDeltaY) * 0.3);
-                firstDiagonalDistance = System.Math.Max(firstDiagonalDistance, 20); // Minimum diagonal length
-                firstDiagonalDistance = System.Math.Min(firstDiagonalDistance, System.Math.Min(System.Math.Abs(remainingDeltaX), System.Math.Abs(remainingDeltaY)));
-                
-                var firstDiagonalDirection = new Point(
-                    System.Math.Sign(remainingDeltaX) * firstDiagonalDistance,
-                    System.Math.Sign(remainingDeltaY) * firstDiagonalDistance
-                );
-                
-                var midPoint2 = new Point(midPoint1.X + firstDiagonalDirection.X, midPoint1.Y + firstDiagonalDirection.Y);
-                points.Add(midPoint2);
-                
-                // Calculate remaining distances after first diagonal
-                var remainingAfterFirstDiagonal = new Point(end.X - midPoint2.X, end.Y - midPoint2.Y);
-                
-                // Vertical segment (middle section)
-                if (System.Math.Abs(remainingAfterFirstDiagonal.Y) > firstDiagonalDistance * 2)
-                {
-                    var verticalDistance = System.Math.Abs(remainingAfterFirstDiagonal.Y) - firstDiagonalDistance;
-                    var midPoint3 = new Point(midPoint2.X, midPoint2.Y + System.Math.Sign(remainingAfterFirstDiagonal.Y) * verticalDistance);
-                    points.Add(midPoint3);
-                    
-                    // Second diagonal segment
-                    var secondDiagonalDistance = System.Math.Min(System.Math.Abs(end.X - midPoint3.X), System.Math.Abs(end.Y - midPoint3.Y));
-                    var secondDiagonalDirection = new Point(
-                        System.Math.Sign(end.X - midPoint3.X) * secondDiagonalDistance,
-                        System.Math.Sign(end.Y - midPoint3.Y) * secondDiagonalDistance
-                    );
-                    
-                    var midPoint4 = new Point(midPoint3.X + secondDiagonalDirection.X, midPoint3.Y + secondDiagonalDirection.Y);
-                    points.Add(midPoint4);
-                    
-                    // Final horizontal segment if needed
-                    if (System.Math.Abs(end.X - midPoint4.X) > 1)
-                    {
-                        points.Add(end);
-                    }
-                    else
-                    {
-                        points.Add(end);
-                    }
-                }
-                else
-                {
-                    // Not enough vertical distance for the full pattern, use simpler routing
-                    var finalDiagonalDistance = System.Math.Min(System.Math.Abs(remainingAfterFirstDiagonal.X), System.Math.Abs(remainingAfterFirstDiagonal.Y));
-                    if (finalDiagonalDistance > 1)
-                    {
-                        var finalDiagonalDirection = new Point(
-                            System.Math.Sign(remainingAfterFirstDiagonal.X) * finalDiagonalDistance,
-                            System.Math.Sign(remainingAfterFirstDiagonal.Y) * finalDiagonalDistance
-                        );
-                        
-                        var finalMidPoint = new Point(midPoint2.X + finalDiagonalDirection.X, midPoint2.Y + finalDiagonalDirection.Y);
-                        points.Add(finalMidPoint);
-                    }
-                    
-                    points.Add(end);
-                }
-            }
-            else
-            {
-                // Only horizontal movement needed
+                var distanceToGo = Math.Sign(deltaX) * (Math.Abs(deltaX) - Math.Abs(deltaY));
+                points.Add(new Point(start.X  + (Math.Sign(deltaX) * minHorizontalDistance) + (distanceToGo / 2), start.Y));
+                points.Add(new Point(start.X + (Math.Sign(deltaX) * minHorizontalDistance) + (distanceToGo / 2) + (Math.Sign(deltaX) * Math.Abs(deltaY)), start.Y + deltaY));
                 points.Add(end);
             }
+            else
+            {
+                var horizontalSplit = horizontalDistance / 2;
+                var verticalDistance = Math.Sign(deltaY) * (Math.Abs(deltaY) - horizontalSplit);
+                points.Add(new Point(start.X + Math.Sign(horizontalSplit) * (Math.Abs(horizontalSplit / 2) + minHorizontalDistance), start.Y));
+                points.Add(new Point(start.X + Math.Sign(horizontalSplit) * (Math.Abs(horizontalSplit) + minHorizontalDistance), start.Y + Math.Sign(verticalDistance) * Math.Abs(horizontalSplit / 2)));
+                points.Add(new Point(start.X + Math.Sign(horizontalSplit) * (Math.Abs(horizontalSplit) + minHorizontalDistance), start.Y + (Math.Sign(verticalDistance) * Math.Abs(horizontalSplit / 2)) + verticalDistance));
+                points.Add(new Point(start.X + Math.Sign(horizontalSplit) * (Math.Abs(3 * horizontalSplit / 2) + minHorizontalDistance), start.Y + (Math.Sign(verticalDistance) * Math.Abs(horizontalSplit)) + verticalDistance));
+                points.Add(end);
+
+            }
+            
         }
 
         return points;
