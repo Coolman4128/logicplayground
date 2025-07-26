@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace LogicPlayground.ViewModels.LogicBlocks.Outputs;
@@ -10,15 +11,19 @@ public partial class VariableAnalogOutputViewModel : LogicBlockViewModel
     [ObservableProperty]
     private string _name = "NewVariable";
 
+    public Dictionary<string, double> Variables { get; } = null!;
+
     public VariableAnalogOutputViewModel(LogicCanvasViewModel canvasViewModel) : base(canvasViewModel)
     {
+        Variables = canvasViewModel.Variables;
         Value = 0.0;
         Inputs.Add(new ConnectionPointInputViewModel(Enums.ConnectionTypeEnum.Analog));
     }
 
     public override void Process()
     {
+        
         Value = Inputs[0].Value;
-        CanvasViewModel.SetVarValue(Name, Value);
+        Variables[Name] = Value;
     }
 }
