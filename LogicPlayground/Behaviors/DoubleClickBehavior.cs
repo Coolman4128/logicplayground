@@ -63,12 +63,22 @@ public static class DoubleClickBehavior
         if (control.DataContext is LogicBlockViewModel logicBlockViewModel)
         {
             Console.WriteLine($"Double-clicked on LogicBlock: {logicBlockViewModel}");
-            // Find the MainWindowViewModel to set the settings panel
-            var mainWindow = control.FindLogicalAncestorOfType<Window>();
-            if (mainWindow?.DataContext is MainWindowViewModel mainWindowViewModel)
+            
+            // Find the LogicProgrammingView and its ViewModel to set the settings panel
+            var logicProgrammingView = control.FindLogicalAncestorOfType<Views.LogicProgrammingView>();
+            if (logicProgrammingView?.DataContext is LogicProgrammingViewModel logicProgrammingViewModel)
             {
-
-                mainWindowViewModel.SetActiveSettingsPanel(logicBlockViewModel);
+                logicProgrammingViewModel.SetActiveSettingsPanel(logicBlockViewModel);
+            }
+            else
+            {
+                // Fallback: try to find MainWindowViewModel and check if it has LogicProgrammingViewModel
+                var mainWindow = control.FindLogicalAncestorOfType<Window>();
+                if (mainWindow?.DataContext is MainWindowViewModel mainWindowViewModel && 
+                    mainWindowViewModel.CurrentViewModel is LogicProgrammingViewModel currentLogicProgrammingViewModel)
+                {
+                    currentLogicProgrammingViewModel.SetActiveSettingsPanel(logicBlockViewModel);
+                }
             }
         }
     }

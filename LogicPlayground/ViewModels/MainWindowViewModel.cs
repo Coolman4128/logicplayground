@@ -1,48 +1,77 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Avalonia.Controls;
-using LogicPlayground.ViewModels.LogicBlocks;
-using LogicPlayground.Factories;
-using System.Collections.Generic;
 
 namespace LogicPlayground.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    public string Greeting { get; } = "Welcome to Avalonia!";
-
-    public LogicCanvasViewModel LogicCanvasViewModel { get; } = new LogicCanvasViewModel();
-
-    public List<string> AvailableLogicBlocks  => LogicBlockViewModel.BlockTypes;
+    [ObservableProperty]
+    private ObservableCollection<NavigationItemViewModel> _navigationItems;
 
     [ObservableProperty]
-    private string? _selectedLogicBlockType;
+    private NavigationItemViewModel? _selectedNavigationItem;
 
-    [RelayCommand]
-    public void AddLogicBlock(string blockType)
+    [ObservableProperty]
+    private ViewModelBase? _currentViewModel;
+
+    [ObservableProperty]
+    private bool _isSidebarCollapsed = false;
+
+    public GridLength SidebarWidth => IsSidebarCollapsed ? new GridLength(50) : new GridLength(200);
+
+    public MainWindowViewModel()
     {
-        if (!string.IsNullOrEmpty(blockType))
+        // Initialize navigation items
+        var logicProgrammingViewModel = new LogicProgrammingViewModel();
+        
+        NavigationItems = new ObservableCollection<NavigationItemViewModel>
         {
-            LogicCanvasViewModel.AddLogicBlock(blockType);
+            new NavigationItemViewModel("Logic Programming", "🔧", logicProgrammingViewModel),
+            new NavigationItemViewModel("Circuit Design", "⚡", null), // Placeholder for future views
+            new NavigationItemViewModel("Simulation", "🎮", null), // Placeholder for future views
+            new NavigationItemViewModel("Settings", "⚙️", null) // Placeholder for future views
+        };
+
+        // Set Logic Programming as the default selected item
+        SelectedNavigationItem = NavigationItems.First();
+        CurrentViewModel = SelectedNavigationItem.ViewModel;
+        SelectedNavigationItem.IsSelected = true;
+    }
+
+    partial void OnSelectedNavigationItemChanged(NavigationItemViewModel? value)
+    {
+        // Deselect all items
+        foreach (var item in NavigationItems)
+        {
+            item.IsSelected = false;
+        }
+
+        // Select the current item and set the view model
+        if (value != null)
+        {
+            value.IsSelected = true;
+            CurrentViewModel = value.ViewModel;
         }
     }
 
-    [ObservableProperty]
-    private UserControl? _activeSettingsPanel;
-
-    [ObservableProperty] 
-    private LogicBlockViewModel? _activeSettingsViewModel;
-
-    public void SetActiveSettingsPanel(LogicBlockViewModel viewModel)
+    [RelayCommand]
+    public void SelectNavigationItem(NavigationItemViewModel navigationItem)
     {
-        ActiveSettingsViewModel = viewModel;
-        ActiveSettingsPanel = SettingsPanelFactory.CreateSettingsView(viewModel);
+        SelectedNavigationItem = navigationItem;
     }
 
     [RelayCommand]
-    public void CloseSettingsPanel()
+    public void ToggleSidebar()
     {
-        ActiveSettingsPanel = null;
-        ActiveSettingsViewModel = null;
+        IsSidebarCollapsed = !IsSidebarCollapsed;
+        OnPropertyChanged(nameof(SidebarWidth));
+    }
+
+    partial void OnIsSidebarCollapsedChanged(bool value)
+    {
+        OnPropertyChanged(nameof(SidebarWidth));
     }
 }

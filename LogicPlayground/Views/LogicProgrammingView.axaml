@@ -1,0 +1,78 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:LogicPlayground.ViewModels"
+             xmlns:views="using:LogicPlayground.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="LogicPlayground.Views.LogicProgrammingView"
+             x:DataType="vm:LogicProgrammingViewModel">
+
+    <Design.DataContext>
+        <vm:LogicProgrammingViewModel/>
+    </Design.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        
+        <!-- Top button bar -->
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Background="LightGray" Margin="5">
+            <ComboBox Name="LogicBlockSelector" 
+                      Width="200" 
+                      Margin="5"
+                      ItemsSource="{Binding AvailableLogicBlocks}"
+                      SelectedIndex="-1"
+                      SelectionChanged="LogicBlockSelector_SelectionChanged"
+                      PlaceholderText="Select a logic block to add..." />
+        </StackPanel>
+        
+        <!-- Canvas area -->
+        <views:LogicCanvas Grid.Row="1" Grid.Column="0" DataContext="{Binding LogicCanvasViewModel}" />
+        
+        <!-- Settings Panel -->
+        <Border Grid.Row="1" Grid.Column="1" 
+                Width="320" 
+                Background="LightBlue" 
+                BorderBrush="Gray" 
+                BorderThickness="1,0,0,0"
+                IsVisible="{Binding ActiveSettingsPanel, Converter={x:Static ObjectConverters.IsNotNull}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+                <!-- Close Button Header -->
+                <Grid Grid.Row="0" Background="DarkGray" Height="30">
+                    <TextBlock Text="Settings" 
+                              VerticalAlignment="Center" 
+                              Margin="10,0" 
+                              Foreground="White" 
+                              FontWeight="Bold" />
+                    <Button Content="✕" 
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Center" 
+                            Width="25" 
+                            Height="25" 
+                            Margin="5"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="White"
+                            FontSize="12"
+                            Command="{Binding CloseSettingsPanelCommand}" />
+                </Grid>
+                
+                <!-- Settings Content -->
+                <ContentControl Grid.Row="1" Content="{Binding ActiveSettingsPanel}" />
+            </Grid>
+        </Border>
+    </Grid>
+
+</UserControl>
